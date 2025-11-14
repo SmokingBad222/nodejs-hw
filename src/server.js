@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import { logger } from './middleware/logger.js';
 import "dotenv/config";
 import { connectMongoDB } from './db/connectMongoDB.js';
+import { errors } from 'celebrate';
 import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import notesRoutes from './routes/notesRoutes.js';
@@ -22,6 +23,8 @@ app.use(helmet());
 app.use(notesRoutes);
 
 app.use(notFoundHandler);
+
+app.use(errors());
 
 app.use(errorHandler);
 
