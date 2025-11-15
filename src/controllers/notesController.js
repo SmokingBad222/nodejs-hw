@@ -3,7 +3,7 @@ import createHttpError from 'http-errors';
 
 export const getAllNotes = async (req, res, _next) => {
 
-  const { page = 1, perPage = 10, tag, search, sortBy = "_id", sortOrder = "asc"} = req.query;
+  const { page = 1, perPage = 10, tag, search} = req.query;
 
   const skip = (page - 1) * perPage;
 
@@ -24,16 +24,16 @@ export const getAllNotes = async (req, res, _next) => {
     notesQuery
       .skip(skip)
       .limit(perPage)
-      .sort({[sortBy]: sortOrder}),
+      .sort({_id: "asc"}),
   ]);
 
-  const totalPage = Math.ceil(totalNotes / perPage);
+  const totalPages = Math.ceil(totalNotes / perPage);
 
   res.status(200).json({
     page,
     perPage,
     totalNotes,
-    totalPage,
+    totalPages,
     notes,
   });
 
@@ -80,7 +80,7 @@ export const updateNote = async (req, res, next) => {
   const { noteId } = req.params;
 
   const note = await Note.findByIdAndUpdate(
-    { _id: noteId },
+    noteId,
     req.body,
     { new: true },
   );
