@@ -12,7 +12,7 @@ import authRoutes from './routes/authRoutes.js';
 import cookieParser from 'cookie-parser';
 
 const app = express();
-const PORT = process.env.PORT ?? 3000;
+const PORT = process.env.PORT ?? 3030;
 
 app.use(logger);
 app.use(cors());
@@ -32,8 +32,10 @@ app.use(errors());
 
 app.use(errorHandler);
 
+app.listen(PORT, () => {
+  console.log(`Server running on ${PORT}`);
+});
+
 await connectMongoDB();
 
-app.listen(PORT, () => {
-  console.log(`Server running ${PORT}`);
-});
+
