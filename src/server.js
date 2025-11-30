@@ -10,9 +10,11 @@ import { errorHandler } from './middleware/errorHandler.js';
 import notesRoutes from './routes/notesRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import cookieParser from 'cookie-parser';
+import userRoutes from './routes/userRoutes.js';
+
 
 const app = express();
-const PORT = process.env.PORT ?? 3030;
+const PORT = process.env.PORT ?? 3000;
 
 app.use(logger);
 app.use(cors());
@@ -23,8 +25,10 @@ app.use(express.json({
 app.use(helmet());
 app.use(cookieParser());
 
+
 app.use(authRoutes);
 app.use(notesRoutes);
+app.use(userRoutes);
 
 app.use(notFoundHandler);
 
