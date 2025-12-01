@@ -36,10 +36,11 @@ app.use(errors());
 
 app.use(errorHandler);
 
+await connectMongoDB();
+
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);
 });
 
-await connectMongoDB();
 
 
